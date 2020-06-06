@@ -1,0 +1,7 @@
+# Logs
+logs
+*.log
+
+# === Rules for `node_modules` ===
+!**/node_modules/**
+/node_modules

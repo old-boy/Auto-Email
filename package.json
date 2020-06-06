@@ -1,0 +1,23 @@
+{
+  "name": "auto-email",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "nodemailer": "^6.4.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon ./server.js localhost 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/old-boy/Auto-Email.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/old-boy/Auto-Email/issues"
+  },
+  "homepage": "https://github.com/old-boy/Auto-Email#readme"
+}
