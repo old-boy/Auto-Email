@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer')
 const path = require('path')
 const fs = require('fs')
+const ejs = require('ejs')
+
 
 let configEmail = nodemailer.createTransport({
     service: 'qq',
@@ -13,7 +15,9 @@ let configEmail = nodemailer.createTransport({
     }
 });
 
+//接收地址
 let recipientPerson = ['don-pan.cwf@163.com','2853163150@qq.com']
+
 
 let apmEmail =  `<!doctype html>
 <html ⚡4email>
@@ -37,16 +41,32 @@ let imgAttachments = [
     },
     {
         filename:'web-dashboard.jpg',
-        path: 'D:/Code/vue/vue-email/Auto-Email/img/web-dashboard.jpg'
+        path: 'D:/Code/vue/vue-email/Auto-Email/img/web-dashboard.jpg' //从绝对地址中获取图片
+    },
+    {
+        filename: 'web-login.jpg',
+        path: path.resolve(__dirname, './img/web-login.jpg'), //从相对目录中获取图片
     }
 ]
 
+// EDM
+
+
+// 二进制附件
+let icalEventContent = 'BEGIN:VCALENDAR\r\nPRODID:-//ACME/DesktopCalendar//EN\r\nMETHOD:REQUEST\r\n...';
+let icalEvent = {
+    filename: 'invitation.ics',
+    method: 'request',
+    content: icalEventContent
+}
+
 let optionEmail = {
-    from: '340276673@qq.com', // 邮件发送地址
-    to: recipientPerson, // 邮件接收地址
+    from: '340276673@qq.com', // 发送地址
+    to: recipientPerson, // 接收地址
+    cc: 'kevin.chen@anviz.com', //抄送
     subject: '邮件测试', // 邮件主题 
-    html: '<b>赵，这是一份图片附件测试。</b>', // 发送text或者html格式
-    alternatives: imgAttachments
+    // alternatives: imgAttachments,
+    html:  fs.createReadStream(path.resolve(__dirname, './email/c.html'))
 }
 
 configEmail.sendMail(optionEmail, (error,info) => {
