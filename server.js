@@ -1,4 +1,6 @@
 const nodemailer = require('nodemailer')
+const path = require('path')
+const fs = require('fs')
 
 let configEmail = nodemailer.createTransport({
     service: 'qq',
@@ -9,7 +11,9 @@ let configEmail = nodemailer.createTransport({
         // 是你设置的smtp授权码
         pass: 'solyxbbhhckubiic',
     }
-})
+});
+
+let recipientPerson = ['don-pan.cwf@163.com','2853163150@qq.com']
 
 let apmEmail =  `<!doctype html>
 <html ⚡4email>
@@ -26,12 +30,23 @@ let apmEmail =  `<!doctype html>
   </body>
 </html>`
 
+let imgAttachments = [
+    {
+        filename:'web-dashboard-events-V03.jpg',
+        path: 'D:/Code/vue/vue-email/Auto-Email/img/web-dashboard-events-V03.jpg'
+    },
+    {
+        filename:'web-dashboard.jpg',
+        path: 'D:/Code/vue/vue-email/Auto-Email/img/web-dashboard.jpg'
+    }
+]
+
 let optionEmail = {
     from: '340276673@qq.com', // 邮件发送地址
-    to: 'don-pan.cwf@163.com', // 邮件接收地址
+    to: recipientPerson, // 邮件接收地址
     subject: '邮件测试', // 邮件主题 
-    html: '<b>Hello 这是一份 AMP 文件</b>', // 发送text或者html格式
-    apm: apmEmail
+    html: '<b>赵，这是一份图片附件测试。</b>', // 发送text或者html格式
+    alternatives: imgAttachments
 }
 
 configEmail.sendMail(optionEmail, (error,info) => {
