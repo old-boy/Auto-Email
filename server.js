@@ -1,8 +1,7 @@
 const nodemailer = require('nodemailer')
 const path = require('path')
 const fs = require('fs')
-const ejs = require('ejs')
-
+const cron = require('node-cron')
 
 let configEmail = nodemailer.createTransport({
     service: 'qq',
@@ -69,10 +68,14 @@ let optionEmail = {
     html:  fs.createReadStream(path.resolve(__dirname, './email/c.html'))
 }
 
-configEmail.sendMail(optionEmail, (error,info) => {
-    if (error) {
-        return console.log(error);
-    }else{
-        console.log('Message sent: %s', info.messageId);
-    }
+//每周二早上9点发送Email
+cron.schedule('00 00 09 * * Tuesday',() => {
+    configEmail.sendMail(optionEmail, (error,info) => {
+        if (error) {
+            return console.log(error);
+        }else{
+            console.log('Message sent: %s', info.messageId);
+        }
+    })
 })
+

@@ -18,10 +18,13 @@ npm run build
     - 相对路径中获取附件
 - EDM
     - 邮件模板
+- 定时
+    - 定时发邮件
 
 #### 环境依赖
 - node v12.15.0
 - nodemailer v6.4.8
+- node-cron v2.0.3  //定时器
 - path
 - ps
 
